@@ -7,7 +7,7 @@ import { skillGroups } from "../data";
 import { 
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
   SiNodedotjs, SiGraphql, SiVercel, SiFramer, SiGreensock,
-  SiRedux, SiHtml5, SiCss3, SiCss, SiJavascript, SiMongodb, SiExpress,
+  SiRedux, SiHtml5, SiCss, SiJavascript, SiMongodb, SiExpress,
   SiFirebase, SiGithub, SiVite, SiFigma
 } from "react-icons/si";
 

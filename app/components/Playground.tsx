@@ -86,9 +86,11 @@ export default function Playground() {
         render: { visible: false }
       }
     });
+
+    (mouse as any).mousewheel = () => {};
+    (mouse as any).mousewheel.defaultPrevented = true;
+
     World.add(world, mouseConstraint);
-    mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
-    mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
 
     const runner = Runner.create();
     
