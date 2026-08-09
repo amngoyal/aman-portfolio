@@ -7,9 +7,9 @@ import AnimatedText from "./AnimatedText";
 import { skillGroups } from "../data";
 import { 
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
-  SiNodedotjs, SiGraphql, SiVercel, SiFramer, SiGreensock,
+  SiNodedotjs, SiGraphql, SiVercel,
   SiRedux, SiHtml5, SiCss, SiJavascript, SiMongodb, SiExpress,
-  SiFirebase, SiGithub, SiVite, SiFigma
+  SiGithub, SiVite, SiFigma
 } from "react-icons/si";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -65,34 +65,29 @@ export default function Skills() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
-          }
+          },
+          clearProps: "all"
         }
       );
     });
 
     // 2. Interactive 3D Grid Tilt (Single Sheet)
+    const rotateXTo = gsap.quickTo(gridRef.current, "rotationX", { ease: "power2.out", duration: 0.5 });
+    const rotateYTo = gsap.quickTo(gridRef.current, "rotationY", { ease: "power2.out", duration: 0.5 });
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!gridRef.current) return;
       const rect = gridRef.current.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
       const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
 
-      gsap.to(gridRef.current, {
-        rotateY: x * 6, // Subtle 6 degree max rotation for perfect readability
-        rotateX: y * -6,
-        ease: "power2.out",
-        duration: 0.5
-      });
+      rotateYTo(x * 6);
+      rotateXTo(y * -6);
     };
 
     const handleMouseLeave = () => {
-      if (!gridRef.current) return;
-      gsap.to(gridRef.current, {
-        rotateY: 0,
-        rotateX: 0,
-        ease: "power3.out",
-        duration: 1
-      });
+      rotateYTo(0);
+      rotateXTo(0);
     };
 
     const gridEl = gridRef.current;

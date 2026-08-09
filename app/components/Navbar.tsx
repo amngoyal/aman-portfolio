@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { navLinks } from "../data";
 import { HiMenu, HiX } from "react-icons/hi";
 

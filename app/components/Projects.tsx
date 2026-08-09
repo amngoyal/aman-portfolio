@@ -38,7 +38,7 @@ export default function Projects() {
     }
 
     const getScrollAmount = () => {
-      let trackWidth = trackRef.current!.scrollWidth;
+      const trackWidth = trackRef.current!.scrollWidth;
       return -(trackWidth - window.innerWidth);
     };
     
@@ -109,6 +109,7 @@ export default function Projects() {
 
                 {/* Image - Right Side (Presentation Stage) */}
                 <div className="w-full lg:w-[55%] relative overflow-hidden order-1 lg:order-2 bg-[#1A1A1A] flex items-center justify-center p-8 lg:p-12">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img 
                     src={project.imageUrl}
                     alt={project.title}

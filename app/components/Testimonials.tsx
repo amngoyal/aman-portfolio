@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { testimonials } from "../data";
-import AnimatedText from "./AnimatedText";
 
 export default function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -30,19 +29,17 @@ export default function Testimonials() {
             end: "bottom bottom", // finish when we scroll through
             scrub: 1, // smooth scrubbing
             onUpdate: (self) => {
-              // Circle starts expanding at 20% and reaches 150%. 
-              // Turn black when circle is large enough to touch the top
-              if (self.progress > 0.83) {
-                window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: true } }));
-              } else {
-                window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: false } }));
+              const shouldBeDark = self.progress > 0.83;
+              // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
+              if (self.lastThemeDark !== shouldBeDark) {
+                // @ts-expect-error
+                self.lastThemeDark = shouldBeDark;
+                window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: shouldBeDark } }));
               }
             }
           }
         }
       );
-
-      // Create a second trigger to keep the navbar black while the section scrolls up and out of view
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "bottom bottom", // Starts exactly when the animation above finishes
@@ -93,7 +90,7 @@ export default function Testimonials() {
              {/* Single Testimonial Card */}
              <div className="w-full max-w-4xl bg-[#F0F4FF] p-6 lg:p-8 rounded-[30px] lg:rounded-[40px] shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-black/5 flex flex-col justify-between hover:-translate-y-2 hover:shadow-[0_30px_60px_rgba(0,0,0,0.12)] hover:border-accent-cyan/30 transition-all duration-500 cursor-pointer">
                <div>
-                 <span className="text-5xl lg:text-6xl text-black/20 font-serif leading-none block -mt-4 mb-2">"</span>
+                 <span className="text-5xl lg:text-6xl text-black/20 font-serif leading-none block -mt-4 mb-2">&quot;</span>
                  <p className="text-black/80 font-medium text-base lg:text-lg leading-snug lg:leading-snug text-left">
                    {testimonials[0].quote}
                  </p>

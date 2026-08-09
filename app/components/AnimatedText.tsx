@@ -26,12 +26,12 @@ export default function AnimatedText({
     
     const words = containerRef.current.querySelectorAll('.cuberto-word');
     
-    let fromVars: any = { opacity: 0, rotationZ: 5 };
+    const fromVars: gsap.TweenVars = { opacity: 0, rotationZ: 5 };
     if (direction === "up") fromVars.y = "120%";
     else if (direction === "down") fromVars.y = "-120%";
     else if (direction === "right") fromVars.x = "-120%";
 
-    const toVars: any = { 
+    const toVars: gsap.TweenVars = { 
       y: "0%", 
       x: "0%", 
       rotationZ: 0, 

@@ -1,4 +1,4 @@
-import { Briefcase, Code, PenTool, Layout, Terminal, Mail } from "lucide-react";
+import { Briefcase, Terminal, Mail, Layout } from "lucide-react";
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export const navLinks = [

@@ -17,7 +17,7 @@ export default function Writing() {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    itemsRef.current.forEach((item, index) => {
+    itemsRef.current.forEach((item) => {
       if (!item) return;
       gsap.fromTo(
         item,

@@ -52,7 +52,7 @@ export default function About() {
             I build React and Next.js products with a focus on frontend architecture, performance, and SEO. My work usually lives at the intersection of clean UX, strong Core Web Vitals, and scalable component systems.
           </p>
           <p className="text-lg lg:text-xl text-white/60 leading-relaxed">
-            I've led frontend teams through migrations, reusable library design, and product modernization. The goal is always the same: ship polished interfaces that are fast, maintainable, and easy for teams to extend.
+            I&apos;ve led frontend teams through migrations, reusable library design, and product modernization. The goal is always the same: ship polished interfaces that are fast, maintainable, and easy for teams to extend.
           </p>
         </div>
       </div>

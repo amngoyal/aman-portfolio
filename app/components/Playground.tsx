@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import Matter from "matter-js";
 import AnimatedText from "./AnimatedText";
-import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { 
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
@@ -50,7 +49,9 @@ export default function Playground() {
           World = Matter.World,
           Bodies = Matter.Bodies;
 
-    const engine = Engine.create();
+    const engine = Engine.create({
+      enableSleeping: true
+    });
     engineRef.current = engine;
     const world = engine.world;
 
@@ -78,7 +79,7 @@ export default function Playground() {
     };
     window.addEventListener('resize', handleResize);
 
-    const tagBodies = techIcons.map((_, i) => {
+    const tagBodies = techIcons.map(() => {
       const w = 80; 
       const h = 80;
       const x = Math.random() * (width - 200) + 100;
@@ -102,7 +103,9 @@ export default function Playground() {
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (mouse as any).mousewheel = () => {};
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (mouse as any).mousewheel.defaultPrevented = true;
 
     World.add(world, mouseConstraint);
