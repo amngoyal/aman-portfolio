@@ -46,7 +46,7 @@ export default function Hero() {
           text="AMAN GOYAL" 
           strokeColor="var(--color-accent-cyan)" 
           fillColor="var(--color-foreground)" 
-          trigger="scroll" 
+          trigger="mount" 
           letterSpacing={2}
           fontFamily='"Helvetica Neue", Helvetica, Arial, sans-serif'
           fontWeight={800}

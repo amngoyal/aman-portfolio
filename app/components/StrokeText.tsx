@@ -78,15 +78,21 @@ const StrokeText: React.FC<StrokeTextProps> = ({
 
     let cancelled = false;
 
-    const measure = () => {
+    const measure = (retryCount = 0) => {
       if (cancelled || !strokeTextRef.current) return;
       let bbox;
       try {
         bbox = strokeTextRef.current.getBBox();
       } catch {
+        // SVG not ready
+      }
+      
+      if (!bbox || !bbox.width) {
+        if (retryCount < 10) {
+          setTimeout(() => measure(retryCount + 1), 50);
+        }
         return;
       }
-      if (!bbox || !bbox.width) return;
 
       const pad = Math.max(Number(strokeWidth) || 1, fontSize * 0.1);
       const next = {
