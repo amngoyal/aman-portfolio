@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedText from "./AnimatedText";
 import { skillGroups } from "../data";
 import { 
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
@@ -112,7 +113,7 @@ export default function Skills() {
     <section id="skills" ref={sectionRef} className="py-[30px] lg:py-24 px-4 max-w-7xl mx-auto">
       <div className="mb-8 animate-title">
         <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-2 text-white">
-          Tech Stack
+          <AnimatedText text="Tech Stack" direction="right" />
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-accent-cyan to-accent-purple" />
       </div>

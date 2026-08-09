@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
+import AnimatedText from "./AnimatedText";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -18,10 +19,10 @@ export default function Hero() {
       { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power4.out", delay: 0.2 }
     )
     .fromTo(
-      subtextRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-      "-=0.8"
+      ".cuberto-word-hero-inner",
+      { y: "120%", rotationZ: 5, opacity: 0 },
+      { y: "0%", rotationZ: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power4.out" },
+      "-=0.7"
     )
     .fromTo(
       buttonsRef.current,
@@ -39,7 +40,7 @@ export default function Hero() {
     >
       <h1
         ref={textRef}
-        className="text-6xl lg:text-8xl lg:text-9xl font-black tracking-tighter uppercase leading-[0.85]"
+        className="text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85]"
       >
         Aman <br /> Goyal
       </h1>
@@ -48,9 +49,9 @@ export default function Hero() {
         ref={subtextRef}
         className="mt-4 text-xl lg:text-2xl font-medium text-white/80 max-w-2xl"
       >
-        Senior JavaScript Engineer
+        <AnimatedText text="Senior JavaScript Engineer" animateOnScroll={false} />
         <span className="block mt-2 text-base lg:text-lg text-white/60 font-normal">
-          Crafting Performant, Interactive & Elegant Web Experiences.
+          <AnimatedText text="Crafting Performant, Interactive & Elegant Web Experiences." animateOnScroll={false} />
         </span>
       </p>
 

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedText from "./AnimatedText";
 import { blogPosts } from "../data";
 
 if (typeof window !== "undefined") {
@@ -40,7 +41,7 @@ export default function Writing() {
     <section id="writing" ref={sectionRef} className="py-24 px-4 max-w-5xl mx-auto">
       <div className="mb-16 animate-title">
         <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-4 text-center">
-          Writing & Talks
+          <AnimatedText text="Writing & Talks" direction="right" />
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-accent-cyan to-accent-purple mx-auto" />
       </div>

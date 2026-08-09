@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Matter from "matter-js";
+import AnimatedText from "./AnimatedText";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { 
@@ -57,11 +58,25 @@ export default function Playground() {
     const height = sceneRef.current.clientHeight;
 
     const wallOptions = { isStatic: true, render: { visible: false } };
-    const ground = Bodies.rectangle(width / 2, height + 25, width, 50, wallOptions);
-    const leftWall = Bodies.rectangle(-25, height / 2, 50, height, wallOptions);
-    const rightWall = Bodies.rectangle(width + 25, height / 2, 50, height, wallOptions);
-    const roof = Bodies.rectangle(width / 2, -500, width, 50, wallOptions);
-    World.add(world, [ground, leftWall, rightWall, roof]);
+    const wallThickness = 500;
+    const wallLength = 5000;
+    
+    const ground = Bodies.rectangle(width / 2, height + wallThickness / 2, wallLength, wallThickness, wallOptions);
+    const leftWall = Bodies.rectangle(0 - wallThickness / 2, height / 2, wallThickness, wallLength, wallOptions);
+    const rightWall = Bodies.rectangle(width + wallThickness / 2, height / 2, wallThickness, wallLength, wallOptions);
+    
+    World.add(world, [ground, leftWall, rightWall]);
+
+    // Handle window resize
+    const handleResize = () => {
+      if (!sceneRef.current) return;
+      const newWidth = sceneRef.current.clientWidth;
+      const newHeight = sceneRef.current.clientHeight;
+      Matter.Body.setPosition(ground, { x: newWidth / 2, y: newHeight + wallThickness / 2 });
+      Matter.Body.setPosition(rightWall, { x: newWidth + wallThickness / 2, y: newHeight / 2 });
+      Matter.Body.setPosition(leftWall, { x: 0 - wallThickness / 2, y: newHeight / 2 });
+    };
+    window.addEventListener('resize', handleResize);
 
     const tagBodies = techIcons.map((_, i) => {
       const w = 80; 
@@ -105,7 +120,7 @@ export default function Playground() {
       tagBodies.forEach((body, i) => {
         const el = elementsRef.current[i];
         if (el) {
-          el.style.transform = `translate(${body.position.x}px, ${body.position.y}px) rotate(${body.angle}rad) translate(-50%, -50%)`;
+          el.style.transform = `translate(${body.position.x - 40}px, ${body.position.y - 40}px) rotate(${body.angle}rad)`;
         }
       });
       animationFrame = requestAnimationFrame(update);
@@ -116,6 +131,7 @@ export default function Playground() {
       cancelAnimationFrame(animationFrame);
       Runner.stop(runner);
       Engine.clear(engine);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -124,7 +140,7 @@ export default function Playground() {
       <div className="mb-8 lg:mb-12 animate-title flex justify-between items-end">
         <div>
           <h2 className="text-4xl lg:text-5xl font-black uppercase tracking-tighter mb-4 text-white">
-            Beyond Code
+            <AnimatedText text="Beyond Code" direction="right" />
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-green-400 to-accent-cyan" />
         </div>

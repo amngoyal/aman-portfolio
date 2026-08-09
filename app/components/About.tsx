@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedText from "./AnimatedText";
 import { services, stats } from "../data";
 
 if (typeof window !== "undefined") {
@@ -42,10 +43,10 @@ export default function About() {
       <div className="mb-12 lg:mb-16 max-w-4xl animate-up">
         <div className="animate-title">
           <p className="text-accent-cyan text-sm font-bold uppercase tracking-widest mb-4">
-            Introduction.
+            <AnimatedText text="Introduction." direction="right" />
           </p>
           <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter mb-4">
-            Overview
+            <AnimatedText text="Overview" direction="right" />
           </h2>
           <p className="text-xl lg:text-2xl text-white/90 leading-relaxed font-medium mb-6">
             I build React and Next.js products with a focus on frontend architecture, performance, and SEO. My work usually lives at the intersection of clean UX, strong Core Web Vitals, and scalable component systems.

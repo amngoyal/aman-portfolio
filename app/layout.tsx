@@ -6,6 +6,7 @@ import BackgroundShapes from "./BackgroundShapes";
 import GlobalAnimations from "./components/GlobalAnimations";
 import CustomCursor from "./components/CustomCursor";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -60,6 +61,7 @@ export default function RootLayout({
           {children}
         </LenisProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

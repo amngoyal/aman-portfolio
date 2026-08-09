@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { featuredProjects } from "../data";
+import AnimatedText from "./AnimatedText";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -65,7 +66,7 @@ export default function Projects() {
     <section id="projects" className="w-full bg-transparent py-[30px] lg:py-24">
       <div ref={headerRef} className="px-4 max-w-7xl mx-auto w-full mb-4 animate-title">
         <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter mb-4 text-white">
-          Featured Projects
+          <AnimatedText text="Featured Projects" direction="right" />
         </h2>
         <div className="w-24 h-1 bg-gradient-to-r from-accent-cyan to-accent-purple" />
       </div>

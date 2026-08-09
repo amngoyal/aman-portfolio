@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { contactLinks } from "../data";
+import AnimatedText from "./AnimatedText";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -41,7 +42,7 @@ export default function Contact() {
       <h2 
         ref={titleRef} className="text-6xl lg:text-8xl lg:text-9xl font-black uppercase tracking-tighter text-white mb-8 animate-title"
       >
-        Let&apos;s <br /> Talk
+        <AnimatedText text="Let's Talk" direction="right" />
       </h2>
 
       <div ref={linksRef} className="flex flex-wrap justify-center gap-6 lg:gap-12 relative z-10">

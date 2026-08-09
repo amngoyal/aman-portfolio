@@ -50,11 +50,11 @@ export default function CustomCursor() {
     <>
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-12 h-12 bg-accent-cyan/20 rounded-full blur-[8px] mix-blend-screen pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 hidden lg:block"
+        className="fixed top-0 left-0 w-12 h-12 bg-white/20 rounded-full blur-[8px] pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 hidden lg:block mix-blend-difference transition-colors duration-300"
       />
       <div 
         ref={dotRef} 
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden lg:block shadow-[0_0_10px_rgba(0,255,255,0.8)]"
+        className="fixed top-0 left-0 w-3 h-3 bg-white rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 hidden lg:block mix-blend-difference transition-colors duration-300"
       />
     </>
   );

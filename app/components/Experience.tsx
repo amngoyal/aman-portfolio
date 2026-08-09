@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedText from "./AnimatedText";
 import { experiences } from "../data";
 
 if (typeof window !== "undefined") {
@@ -52,7 +53,7 @@ export default function Experience() {
       <div ref={leftColRef} className="w-full lg:w-1/3 lg:sticky lg:top-32">
         <div className="animate-title">
           <h2 className="text-4xl lg:text-6xl font-black uppercase tracking-tighter mb-4 text-white">
-            Experience
+            <AnimatedText text="Experience" direction="right" />
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-accent-cyan to-accent-purple mb-4" />
           <p className="text-white/50 text-lg leading-relaxed">

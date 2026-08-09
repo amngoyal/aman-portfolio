@@ -10,8 +10,29 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   const resumeLink = "https://drive.google.com/drive/folders/13-ed-g1u9CIfvGYYAkyZk4sFQUf8Mw_B";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling down (moving down the page)
+        setIsHidden(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling up (moving towards the top of the page)
+        setIsHidden(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (!navRef.current) return;
@@ -19,28 +40,27 @@ export default function Navbar() {
     gsap.fromTo(
       navRef.current,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.5 }
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.5, clearProps: "all" }
     );
-    // Detect overlap with white background sections
-    const st = ScrollTrigger.create({
-      trigger: "#testimonials",
-      start: "top 80px", // When top of testimonials hits navbar
-      end: "bottom 80px", // When bottom of testimonials leaves navbar
-      onEnter: () => setIsDark(true),
-      onLeave: () => setIsDark(false),
-      onEnterBack: () => setIsDark(true),
-      onLeaveBack: () => setIsDark(false),
-    });
+    // Listen for custom nav theme events dispatched by specific sections (like Testimonials Orbit)
+    const handleNavTheme = (e: Event) => {
+      const customEvent = e as CustomEvent<{ dark: boolean }>;
+      setIsDark(customEvent.detail.dark);
+    };
+    
+    window.addEventListener("nav-theme", handleNavTheme);
     
     return () => {
-      st.kill();
+      window.removeEventListener("nav-theme", handleNavTheme);
     };
   }, []);
 
   return (
     <header
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md border-b transition-colors duration-300 ${isDark ? "bg-black/5 border-black/10" : "bg-white/5 border-white/10"}`}
+      className={`fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md border-b transition-all duration-300 ${
+        isDark ? "bg-black/5 border-black/10" : "bg-white/5 border-white/10"
+      } ${isHidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}
     >
       <div className="flex items-center justify-between w-full">
         <a 
