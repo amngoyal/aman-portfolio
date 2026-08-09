@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://amangoyal.dev/sitemap.xml',
+    sitemap: 'https://www.amangoyal.dev/sitemap.xml',
   };
 }

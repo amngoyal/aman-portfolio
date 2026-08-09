@@ -14,19 +14,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://amangoyal.dev"),
+  metadataBase: new URL("https://www.amangoyal.dev"),
   title: "Aman Goyal | Senior Frontend Developer",
   description: "Portfolio of Aman Goyal, a Senior Frontend Developer specializing in React, Next.js, and crafting highly performant, scalable web architectures.",
   keywords: ["Aman Goyal", "Frontend Developer", "React Developer", "Next.js", "Web Developer", "Software Engineer", "India"],
   authors: [{ name: "Aman Goyal" }],
   creator: "Aman Goyal",
   alternates: {
-    canonical: "https://amangoyal.dev",
+    canonical: "https://www.amangoyal.dev",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://amangoyal.dev",
+    url: "https://www.amangoyal.dev",
     title: "Aman Goyal | Senior Frontend Developer",
     description: "Portfolio of Aman Goyal, a Senior Frontend Developer specializing in React, Next.js, and crafting highly performant, scalable web architectures.",
     siteName: "Aman Goyal Portfolio",
@@ -71,7 +71,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               "name": "Aman Goyal",
-              "url": "https://amangoyal.dev",
+              "url": "https://www.amangoyal.dev",
               "jobTitle": "Senior JavaScript Engineer",
               "worksFor": {
                 "@type": "Organization",
