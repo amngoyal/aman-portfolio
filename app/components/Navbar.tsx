@@ -45,7 +45,7 @@ export default function Navbar() {
         opacity: 1, 
         duration: 1, 
         ease: "power3.out", 
-        delay: 2.8, 
+        delay: 0.5, 
         clearProps: "all",
         onComplete: () => {
           setIsAnimationComplete(true);

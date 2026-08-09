@@ -30,10 +30,10 @@ export default function BackgroundShapes() {
       className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-[#111111]"
     >
       {/* Cyan glow */}
-      <div className="bg-shape absolute top-[10%] left-[10%] w-[30vw] h-[30vw] bg-accent-cyan/10 rounded-full blur-[100px] mix-blend-screen" />
+      <div className="bg-shape absolute top-[10%] left-[10%] w-[300px] h-[300px] md:w-[30vw] md:h-[30vw] bg-accent-cyan/7 md:bg-accent-cyan/10 rounded-full blur-[80px] md:blur-[100px] mix-blend-screen" />
       
       {/* Purple glow */}
-      <div className="bg-shape absolute bottom-[10%] right-[10%] w-[40vw] h-[40vw] bg-accent-purple/10 rounded-full blur-[120px] mix-blend-screen" />
+      <div className="bg-shape absolute bottom-[10%] right-[10%] w-[350px] h-[350px] md:w-[40vw] md:h-[40vw] bg-accent-purple/7 md:bg-accent-purple/10 rounded-full blur-[90px] md:blur-[120px] mix-blend-screen" />
 
       {/* Abstract thin geometric lines */}
             <svg className="absolute inset-0 w-full h-full opacity-20" xmlns="http://www.w3.org/2000/svg">

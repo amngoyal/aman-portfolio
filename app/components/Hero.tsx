@@ -16,31 +16,46 @@ export default function Hero() {
     // StrokeText handles its own entrance animation.
     // It takes ~3 seconds to draw and fill (1.6s draw + 0.2s delay + 0.8s fill + 0.4s stagger).
     // We delay the rest of the Hero elements until it is almost finished.
-    const tl = gsap.timeline();
+    let ctx = gsap.context(() => {
+      const mm = gsap.matchMedia();
 
-    tl.fromTo(
-      ".cuberto-word-hero-inner",
-      { y: "120%", rotationZ: 5, opacity: 0 },
-      { y: "0%", rotationZ: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power4.out" },
-      2.8
-    )
-    .fromTo(
-      buttonsRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-      "-=0.4"
-    );
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const tl = gsap.timeline();
+        tl.fromTo(
+          ".cuberto-word-hero-inner",
+          { y: "120%", rotationZ: 5, opacity: 0 },
+          { y: "0%", rotationZ: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power4.out" },
+          0.8
+        )
+        .fromTo(
+          buttonsRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
+          "-=0.4"
+        );
+      });
+
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        // If reduced motion is enabled, StrokeText finishes instantly.
+        // We must reveal these instantly too, otherwise the screen stays empty for 2.8s!
+        gsap.set(".cuberto-word-hero-inner", { y: "0%", rotationZ: 0, opacity: 1 });
+        gsap.set(buttonsRef.current, { opacity: 1, y: 0 });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-[85vh] lg:min-h-[90vh] flex flex-col items-center justify-center text-center px-4 pt-24 lg:pt-32"
+      className="relative min-h-[100svh] lg:min-h-[100vh] flex flex-col items-center justify-center text-center px-4 pt-20 lg:pt-0"
     >
       <h1
         ref={textRef}
-        className="w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[80vw] xl:max-w-[1200px] mx-auto flex flex-col items-center justify-center -mt-8"
+        className="w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[80vw] xl:max-w-[1200px] mx-auto flex flex-col items-center justify-center -mt-4 lg:-mt-8"
+        style={{ '--stroke-text-height': 'clamp(70px, 15vw, 160px)' } as React.CSSProperties}
       >
         <StrokeText 
           text="AMAN GOYAL" 
@@ -50,6 +65,7 @@ export default function Hero() {
           letterSpacing={2}
           fontFamily='"Helvetica Neue", Helvetica, Arial, sans-serif'
           fontWeight={800}
+          fillDelay={-0.2}
         />
       </h1>
       
@@ -71,7 +87,7 @@ export default function Hero() {
               e.preventDefault();
               document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-white/90 transition-colors"
+            className="inline-block px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-white/90 transition-colors"
           >
             View Projects
           </a>
@@ -83,7 +99,7 @@ export default function Hero() {
               e.preventDefault();
               document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold hover:bg-white/10 transition-colors backdrop-blur-sm"
+            className="inline-block px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold hover:bg-white/10 transition-colors backdrop-blur-sm"
           >
             Let&apos;s Talk
           </a>

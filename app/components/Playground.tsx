@@ -79,7 +79,10 @@ export default function Playground() {
     };
     window.addEventListener('resize', handleResize);
 
-    const tagBodies = techIcons.map(() => {
+    const isMobile = window.innerWidth < 768;
+    const activeCount = isMobile ? 8 : techIcons.length;
+
+    const tagBodies = techIcons.slice(0, activeCount).map(() => {
       const w = 80; 
       const h = 80;
       const x = Math.random() * (width - 200) + 100;
@@ -174,7 +177,7 @@ export default function Playground() {
           <div
             key={i}
             ref={(el) => { elementsRef.current[i] = el; }}
-            className="absolute top-0 left-0 bg-white/5 border border-white/10 text-white flex items-center justify-center rounded-2xl select-none"
+            className={`absolute top-0 left-0 bg-white/5 border border-white/10 text-white flex items-center justify-center rounded-2xl select-none ${i >= 8 ? 'max-md:hidden' : ''}`}
             style={{ 
               width: '80px',
               height: '80px',

@@ -140,7 +140,7 @@ const StrokeText: React.FC<StrokeTextProps> = ({
     const setStart = () => {
       gsap.killTweensOf(targets);
       gsap.set(strokes, { strokeDasharray: dash, strokeDashoffset: dash });
-      gsap.set(fills, { opacity: useWipe ? 1 : 0 });
+      gsap.set(fills, { opacity: 0 }); // ALWAYS start invisible, even for wipe
       if (wipe) gsap.set(wipe, { attr: { width: 0 } });
     };
 
@@ -169,6 +169,7 @@ const StrokeText: React.FC<StrokeTextProps> = ({
       tl.to(strokes, { strokeDashoffset: 0, duration: drawDuration, ease, stagger: staggerConfig }, 0);
 
       if (useWipe && wipe) {
+        tl.set(fills, { opacity: 1 }, drawDuration + fillDelay); // Make fill visible exactly when wipe starts
         tl.to(
           wipe,
           { attr: { width: box.width }, duration: fillDuration, ease: 'power2.inOut' },
@@ -266,7 +267,7 @@ const StrokeText: React.FC<StrokeTextProps> = ({
           vectorEffect="non-scaling-stroke"
         >
           {characters.map((char, index) => (
-            <tspan data-stroke-char key={`s-${index}`}>
+            <tspan data-stroke-char key={`s-${index}`} style={{ strokeDasharray: dash, strokeDashoffset: dash }}>
               {char}
             </tspan>
           ))}
@@ -283,7 +284,7 @@ const StrokeText: React.FC<StrokeTextProps> = ({
           clipPath={fillMode === 'wipe' && box ? `url(#${wipeId})` : undefined}
         >
           {characters.map((char, index) => (
-            <tspan data-fill-char key={`f-${index}`}>
+            <tspan data-fill-char key={`f-${index}`} style={{ opacity: 0 }}>
               {char}
             </tspan>
           ))}
