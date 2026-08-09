@@ -31,3 +31,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555555;
 }
+
+/* Prevent SSR FOUC but fallback gracefully if JS is disabled */
+.js-hidden {
+  opacity: 0;
+}
+
+@media (scripting: none) {
+  .js-hidden {
+    opacity: 1 !important;
+  }
+}

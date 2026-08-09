@@ -55,7 +55,7 @@ export default function AnimatedText({
     <span ref={containerRef} className={`inline-block ${className}`}>
       {text.split(" ").map((word, i) => (
         <span key={i} className={`inline-block overflow-hidden align-bottom pr-[0.3em] pb-[0.1em] -mb-[0.1em] ${animateOnScroll ? '' : 'cuberto-word-hero'}`}>
-          <span className={`inline-block origin-bottom-left ${animateOnScroll ? 'cuberto-word' : 'cuberto-word-hero-inner'}`}>
+          <span className={`inline-block origin-bottom-left ${animateOnScroll ? 'cuberto-word' : 'cuberto-word-hero-inner js-hidden'}`}>
             {word}
           </span>
         </span>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import AnimatedText from "./AnimatedText";
+import StrokeText from "./StrokeText";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -10,25 +11,23 @@ export default function Hero() {
   const subtextRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    // StrokeText handles its own entrance animation.
+    // It takes ~3 seconds to draw and fill (1.6s draw + 0.2s delay + 0.8s fill + 0.4s stagger).
+    // We delay the rest of the Hero elements until it is almost finished.
     const tl = gsap.timeline();
 
     tl.fromTo(
-      textRef.current,
-      { opacity: 0, y: 50, scale: 0.9 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power4.out", delay: 0.2 }
-    )
-    .fromTo(
       ".cuberto-word-hero-inner",
       { y: "120%", rotationZ: 5, opacity: 0 },
       { y: "0%", rotationZ: 0, opacity: 1, duration: 0.8, stagger: 0.04, ease: "power4.out" },
-      "-=0.7"
+      2.8
     )
     .fromTo(
       buttonsRef.current,
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 1, ease: "power3.out" },
-      "-=0.8"
+      "-=0.4"
     );
   }, []);
 
@@ -40,9 +39,17 @@ export default function Hero() {
     >
       <h1
         ref={textRef}
-        className="text-6xl md:text-8xl lg:text-[10rem] font-black tracking-tighter uppercase leading-[0.85]"
+        className="w-full max-w-[95vw] md:max-w-[90vw] lg:max-w-[80vw] xl:max-w-[1200px] mx-auto flex flex-col items-center justify-center -mt-8"
       >
-        Aman <br /> Goyal
+        <StrokeText 
+          text="AMAN GOYAL" 
+          strokeColor="#00f2fe" 
+          fillColor="#ffffff" 
+          trigger="scroll" 
+          letterSpacing={2}
+          fontFamily='"Helvetica Neue", Helvetica, Arial, sans-serif'
+          fontWeight={800}
+        />
       </h1>
       
       <p 
@@ -55,7 +62,7 @@ export default function Hero() {
         </span>
       </p>
 
-      <div ref={buttonsRef} className="mt-8 flex flex-wrap gap-6 justify-center">
+      <div ref={buttonsRef} className="mt-8 flex flex-wrap gap-6 justify-center js-hidden">
         <a
           href="#projects"
           onClick={(e) => {

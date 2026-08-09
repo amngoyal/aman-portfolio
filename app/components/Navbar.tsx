@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { navLinks } from "../data";
 import { HiMenu, HiX } from "react-icons/hi";
@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const lastScrollY = useRef(0);
 
   const resumeLink = "https://drive.google.com/drive/folders/13-ed-g1u9CIfvGYYAkyZk4sFQUf8Mw_B";
@@ -33,13 +34,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!navRef.current) return;
     
     gsap.fromTo(
       navRef.current,
       { y: -100, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.5, clearProps: "all" }
+      { 
+        y: 0, 
+        opacity: 1, 
+        duration: 1, 
+        ease: "power3.out", 
+        delay: 2.8, 
+        clearProps: "all",
+        onComplete: () => {
+          setIsAnimationComplete(true);
+        }
+      }
     );
     // Listen for custom nav theme events dispatched by specific sections (like Testimonials Orbit)
     const handleNavTheme = (e: Event) => {
@@ -57,7 +68,7 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md border-b transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 px-8 py-4 backdrop-blur-md border-b transition-all duration-300 ${!isAnimationComplete ? "js-hidden" : ""} ${
         isDark ? "bg-black/5 border-black/10" : "bg-white/5 border-white/10"
       } ${isHidden ? "-translate-y-full opacity-0" : "translate-y-0 opacity-100"}`}
     >

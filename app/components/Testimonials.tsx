@@ -32,7 +32,7 @@ export default function Testimonials() {
               const shouldBeDark = self.progress > 0.83;
               // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
               if (self.lastThemeDark !== shouldBeDark) {
-                // @ts-expect-error
+                // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
                 self.lastThemeDark = shouldBeDark;
                 window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: shouldBeDark } }));
               }
