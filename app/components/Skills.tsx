@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import AnimatedText from "./AnimatedText";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 import { skillGroups } from "../data";
 import { 
   SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, 
@@ -48,30 +49,17 @@ export default function Skills() {
   const gridRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
 
-  useEffect(() => {
-    // 1. Reveal Animation on Scroll
-    cardsRef.current.forEach((card, i) => {
-      if (!card) return;
-      gsap.fromTo(
-        card,
-        { opacity: 0, y: 50, scale: 0.95 },
-        {
-          opacity: 1, 
-          y: 0, 
-          scale: 1,
-          duration: 0.8,
-          delay: i * 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-          },
-          clearProps: "all"
-        }
-      );
-    });
+  useScrollReveal(cardsRef, {
+    y: 50,
+    opacity: 0,
+    scale: 0.95,
+    duration: 0.8,
+    stagger: 0.15,
+    ease: "power3.out",
+    start: "top 75%",
+  });
 
-    // 2. Interactive 3D Grid Tilt (Single Sheet)
+  useEffect(() => {    // 2. Interactive 3D Grid Tilt (Single Sheet)
     const rotateXTo = gsap.quickTo(gridRef.current, "rotationX", { ease: "power2.out", duration: 0.5 });
     const rotateYTo = gsap.quickTo(gridRef.current, "rotationY", { ease: "power2.out", duration: 0.5 });
 

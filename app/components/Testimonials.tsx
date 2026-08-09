@@ -16,30 +16,54 @@ export default function Testimonials() {
     
     // Delay setup to allow Projects section to finish pinning, which changes vertical offsets
     const timeout = setTimeout(() => {
-      // Animate the orbit (clip-path expansion)
-      gsap.fromTo(
-        orbitRef.current,
-        { clipPath: "circle(20% at 50% 50%)" },
-        {
-          clipPath: "circle(150% at 50% 50%)", // expand to cover screen
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top center", // start expanding when top hits center
-            end: "bottom bottom", // finish when we scroll through
-            scrub: 1, // smooth scrubbing
-            onUpdate: (self) => {
-              const shouldBeDark = self.progress > 0.83;
-              // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
-              if (self.lastThemeDark !== shouldBeDark) {
+      const mm = gsap.matchMedia();
+      
+      mm.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+        // Animate the orbit (clip-path expansion) - ONLY on desktop with motion permitted
+        gsap.fromTo(
+          orbitRef.current,
+          { clipPath: "circle(20% at 50% 50%)" },
+          {
+            clipPath: "circle(150% at 50% 50%)", // expand to cover screen
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top center", // start expanding when top hits center
+              end: "bottom bottom", // finish when we scroll through
+              scrub: 1, // smooth scrubbing
+              onUpdate: (self) => {
+                const shouldBeDark = self.progress > 0.83;
                 // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
-                self.lastThemeDark = shouldBeDark;
-                window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: shouldBeDark } }));
+                if (self.lastThemeDark !== shouldBeDark) {
+                  // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
+                  self.lastThemeDark = shouldBeDark;
+                  window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: shouldBeDark } }));
+                }
               }
             }
           }
-        }
-      );
+        );
+      });
+
+      mm.add("(max-width: 767px), (prefers-reduced-motion: reduce)", () => {
+        // Mobile or reduced motion: just run the theme change, no heavy clip-path
+        gsap.set(orbitRef.current, { clipPath: "circle(150% at 50% 50%)" }); // ensure it's fully expanded
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top center",
+          end: "bottom bottom",
+          scrub: 1,
+          onUpdate: (self) => {
+            const shouldBeDark = self.progress > 0.83;
+            // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
+            if (self.lastThemeDark !== shouldBeDark) {
+              // @ts-expect-error - Attach lastTheme state to the ScrollTrigger instance to avoid closure staleness
+              self.lastThemeDark = shouldBeDark;
+              window.dispatchEvent(new CustomEvent("nav-theme", { detail: { dark: shouldBeDark } }));
+            }
+          }
+        });
+      });
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "bottom bottom", // Starts exactly when the animation above finishes

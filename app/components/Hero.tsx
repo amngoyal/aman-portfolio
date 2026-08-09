@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import AnimatedText from "./AnimatedText";
 import StrokeText from "./StrokeText";
+import MagneticButton from "./MagneticButton";
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -43,8 +44,8 @@ export default function Hero() {
       >
         <StrokeText 
           text="AMAN GOYAL" 
-          strokeColor="#00f2fe" 
-          fillColor="#ffffff" 
+          strokeColor="var(--color-accent-cyan)" 
+          fillColor="var(--color-foreground)" 
           trigger="scroll" 
           letterSpacing={2}
           fontFamily='"Helvetica Neue", Helvetica, Arial, sans-serif'
@@ -63,26 +64,30 @@ export default function Hero() {
       </p>
 
       <div ref={buttonsRef} className="mt-8 flex flex-wrap gap-6 justify-center js-hidden">
-        <a
-          href="#projects"
-          onClick={(e) => {
-            e.preventDefault();
-            document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="px-8 py-4 bg-white text-black rounded-full font-bold hover:bg-white/90 transition-colors duration-300"
-        >
-          View Projects
-        </a>
-        <a
-          href="#contact"
-          onClick={(e) => {
-            e.preventDefault();
-            document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          className="px-8 py-4 bg-white/5 hover:bg-white/10 rounded-full font-semibold border border-white/10 transition-colors duration-300"
-        >
-          Let&apos;s Talk
-        </a>
+        <MagneticButton>
+          <a
+            href="#projects"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="px-8 py-4 bg-white text-black rounded-full font-semibold hover:bg-white/90 transition-colors"
+          >
+            View Projects
+          </a>
+        </MagneticButton>
+        <MagneticButton>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="px-8 py-4 bg-white/5 border border-white/10 rounded-full font-semibold hover:bg-white/10 transition-colors backdrop-blur-sm"
+          >
+            Let&apos;s Talk
+          </a>
+        </MagneticButton>
       </div>
     </section>
   );
