@@ -14,11 +14,15 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://amangoyal.dev"),
   title: "Aman Goyal | Senior Frontend Developer",
   description: "Portfolio of Aman Goyal, a Senior Frontend Developer specializing in React, Next.js, and crafting highly performant, scalable web architectures.",
   keywords: ["Aman Goyal", "Frontend Developer", "React Developer", "Next.js", "Web Developer", "Software Engineer", "India"],
   authors: [{ name: "Aman Goyal" }],
   creator: "Aman Goyal",
+  alternates: {
+    canonical: "https://amangoyal.dev",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -60,6 +64,27 @@ export default function RootLayout({
         <LenisProvider>
           {children}
         </LenisProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Aman Goyal",
+              "url": "https://amangoyal.dev",
+              "jobTitle": "Senior JavaScript Engineer",
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Kotak Securities"
+              },
+              "sameAs": [
+                "https://x.com/amngoyal",
+                "https://github.com/amngoyal",
+                "https://www.linkedin.com/in/amngoyal/"
+              ]
+            })
+          }}
+        />
         <Analytics />
         <SpeedInsights />
       </body>
