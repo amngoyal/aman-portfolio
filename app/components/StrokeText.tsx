@@ -114,7 +114,7 @@ const StrokeText: React.FC<StrokeTextProps> = ({
 
     measure();
     if (typeof document !== 'undefined' && document.fonts?.ready) {
-      document.fonts.ready.then(measure).catch(() => {});
+      document.fonts.ready.then(() => measure()).catch(() => {});
     }
 
     return () => {
